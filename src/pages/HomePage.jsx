@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiOutlineChevronDown, HiExternalLink } from 'react-icons/hi';
-import { FaCode, FaServer, FaLayerGroup } from 'react-icons/fa';
+import { FaCode, FaServer, FaLayerGroup, FaMicrochip, FaJava } from 'react-icons/fa';
+import {
+    SiBootstrap,
+    SiCss3,
+    SiArduino,
+    SiCplusplus,
+    SiDjango,
+    SiFirebase,
+    SiHtml5,
+    SiJavascript,
+    SiLaravel,
+    SiMysql,
+    SiPhp,
+    SiPostgresql,
+    SiPython,
+    SiReact,
+    SiTailwindcss,
+    SiTypescript
+} from 'react-icons/si';
 import { Link, useLocation } from 'react-router-dom';
 import Section from '../components/Section';
 import ProjectCard from '../components/ProjectCard';
@@ -12,6 +30,26 @@ import Footer from '../components/Footer';
 import { projects } from '../data/projects';
 import profileImage from '../assets/profile.jpeg';
 import HeroModel from '../components/HeroModel';
+
+const skills = [
+    { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
+    { name: 'CSS3', icon: SiCss3, color: '#1572B6' },
+    { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+    { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+    { name: 'Bootstrap', icon: SiBootstrap, color: '#7952B3' },
+    { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+    { name: 'React.js', icon: SiReact, color: '#61DAFB' },
+    { name: 'PHP', icon: SiPhp, color: '#777BB4' },
+    { name: 'Python', icon: SiPython, color: '#3776AB' },
+    { name: 'Java', icon: FaJava, color: '#E76F00' },
+    { name: 'Laravel', icon: SiLaravel, color: '#FF2D20' },
+    { name: 'Django', icon: SiDjango, color: '#092E20' },
+    { name: 'MySQL', icon: SiMysql, color: '#4479A1' },
+    { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+    { name: 'Firebase', icon: SiFirebase, color: '#FFCA28' },
+    { name: 'C++', icon: SiCplusplus, color: '#00599C' },
+    { name: 'Arduino', icon: SiArduino, color: '#00878F' }
+];
 
 export default function HomePage() {
     const [result, setResult] = useState("");
@@ -187,7 +225,7 @@ export default function HomePage() {
 
             {/* About Section */}
             <Section id="about">
-                <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
                     <Reveal direction="left" className="lg:col-span-2 space-y-8">
                         <div>
                             <h2 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white">About Me</h2>
@@ -210,7 +248,7 @@ export default function HomePage() {
                         </div>
                     </Reveal>
                     <Reveal direction="right" className="flex justify-center lg:justify-end">
-                        <div className="relative w-64 h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-full overflow-hidden border-4 border-purple-500 shadow-lg shadow-purple-400/50">
+                        <div className="relative w-full max-w-xs lg:max-w-sm aspect-[3/4] overflow-hidden rounded-3xl border-4 border-purple-500 shadow-lg shadow-purple-400/50">
                             <img
                                 src={profileImage}
                                 alt="Oshan Perera"
@@ -230,11 +268,12 @@ export default function HomePage() {
                 <Reveal direction="up">
                     <h2 className="text-4xl md:text-6xl font-bold mb-16 dark:text-white text-center">My Arsenal</h2>
                 </Reveal>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
                     {[
-                        { title: 'Frontend', icon: <FaCode />, skills: ['Html', 'Css', 'JavaScript', 'React', 'Tailwind', 'Bootstrap'], color: 'text-blue-400', direction: 'left' },
-                        { title: 'Backend', icon: <FaServer />, skills: ['Node.js', 'PostgreSQL', 'MySQL', 'Python'], color: 'text-green-400', direction: 'up' },
-                        { title: 'DevOps', icon: <FaLayerGroup />, skills: ['Figma', 'Git', 'GitHub'], color: 'text-purple-400', direction: 'right' }
+                        { title: 'Frontend', icon: <FaCode />, skills: ['HTML5', 'CSS3', 'JavaScript', 'TypeScript', 'Bootstrap', 'Tailwind CSS', 'React.js'], color: 'text-blue-400', direction: 'left' },
+                        { title: 'Backend', icon: <FaServer />, skills: ['PHP', 'Python', 'Java', 'Laravel', 'Django', 'REST APIs'], color: 'text-green-400', direction: 'up' },
+                        { title: 'Database', icon: <FaLayerGroup />, skills: ['MySQL', 'PostgreSQL', 'Firebase Firestore', 'Firebase Authentication'], color: 'text-purple-400', direction: 'right' },
+                        { title: 'IoT', icon: <FaMicrochip />, skills: ['C++', 'Arduino', 'ESP32', 'RFID RC522', 'FSR', 'I2C LCD'], color: 'text-cyan-400', direction: 'right' }
                     ].map((stack, i) => (
                         <Reveal key={i} direction={stack.direction} delay={i * 0.1}>
                             <motion.div
@@ -249,6 +288,37 @@ export default function HomePage() {
                             </motion.div>
                         </Reveal>
                     ))}
+                </div>
+                <div
+                    className="skills-marquee relative mt-12 w-full max-w-6xl"
+                    role="region"
+                    aria-label="Skills and technology logos"
+                >
+                    <div className="skills-marquee-track">
+                        {[0, 1].map((copy) => (
+                            <div
+                                key={copy}
+                                className="skills-marquee-group"
+                                aria-hidden={copy === 1 ? 'true' : undefined}
+                            >
+                                {skills.map(({ name, icon, color }) => (
+                                    <div
+                                        key={name}
+                                        className="flex min-w-36 flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-lg dark:border-white/10 dark:bg-slate-900"
+                                    >
+                                        {icon && React.createElement(icon, {
+                                            className: `text-4xl${name === 'GitHub' ? ' dark:brightness-0 dark:invert' : ''}`,
+                                            style: { color },
+                                            'aria-hidden': true
+                                        })}
+                                        <span className="whitespace-nowrap text-sm font-medium text-slate-600 dark:text-slate-300">
+                                            {name}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </Section>
 

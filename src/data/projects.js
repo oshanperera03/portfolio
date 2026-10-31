@@ -15,8 +15,29 @@ import taskflow1 from '../assets/taskflowhome.png';
 import taskflow2 from '../assets/todo.png';
 import taskflow3 from '../assets/note.png';
 
-
 export const projects = [
+    {
+        id: "smart-library-system",
+        title: "Smart Library System",
+        description: "A campus library platform for seat management, student accounts, reservations, and RFID activity, built with React, Firebase, and ESP32.",
+        fullDescription: "Smart Library System is a campus project that combines a web application with ESP32-powered RFID hardware to support library seat management. Students can browse seats, manage their profiles, and review their activity, while administrators manage seats and student accounts and monitor RFID logs. The web application uses Firebase Authentication and Cloud Firestore for authentication and data storage.",
+        features: [
+            "Role-based access for students and administrators",
+            "Student seat browsing, profile management, and activity history",
+            "Administrator dashboard for managing seats and students",
+            "RFID activity logs for administrators",
+            "ESP32 hardware integration for RFID activity",
+            "Firebase Authentication and Cloud Firestore integration"
+        ],
+        tags: ["React", "Firebase", "ESP32", "IoT"],
+        gradient: "from-blue-600 to-cyan-500",
+        image: null,
+        images: [],
+        video: null,
+        github: "https://github.com/oshanperera03/Smart-Library-System",
+        technologies: ["React 19", "Vite", "Firebase Authentication", "Cloud Firestore", "ESP32", "RFID"],
+        inProgress: false
+    },
     {
         id: "portfolio-website",
         title: "Portfolio Website",

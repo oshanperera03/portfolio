@@ -13,18 +13,24 @@ const ProjectCard = ({ project }) => {
             <Link to={`/project/${project.id || 'portfolio-website'}`} className="block overflow-hidden relative aspect-video">
                 <div className={`h-full bg-gradient-to-tr ${project.gradient} relative overflow-hidden`}>
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition duration-500"></div>
-                    <motion.div
-                        className="absolute -bottom-10 left-10 right-10 h-full bg-white dark:bg-slate-800 rounded-t-xl shadow-2xl overflow-hidden"
-                        initial={{ y: 40 }}
-                        whileHover={{ y: 16 }}
-                        transition={{ duration: 0.4 }}
-                    >
-                        <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover object-top"
-                        />
-                    </motion.div>
+                    {project.image ? (
+                        <motion.div
+                            className="absolute -bottom-10 left-10 right-10 h-full bg-white dark:bg-slate-800 rounded-t-xl shadow-2xl overflow-hidden"
+                            initial={{ y: 40 }}
+                            whileHover={{ y: 16 }}
+                            transition={{ duration: 0.4 }}
+                        >
+                            <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover object-top"
+                            />
+                        </motion.div>
+                    ) : (
+                        <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-white">
+                            <span className="text-xl font-bold">{project.title}</span>
+                        </div>
+                    )}
                 </div>
             </Link>
             <div className="p-6 flex-grow flex flex-col">
@@ -41,7 +47,11 @@ const ProjectCard = ({ project }) => {
                     </div>
                     <div className="flex gap-3 text-gray-400">
                         <a href={project.github || "https://github.com/oshanperera03?tab=repositories"} className="hover:text-purple-500 transition" target="_blank" rel="noopener noreferrer"><FaGithub size={20} /></a>
-                        <a href={project.link || "https://github.com/oshanperera03?tab=repositories"} className="hover:text-purple-500 transition" target="_blank" rel="noopener noreferrer"><HiExternalLink size={22} /></a>
+                        {project.link && (
+                            <a href={project.link} className="hover:text-purple-500 transition" target="_blank" rel="noopener noreferrer" aria-label={`${project.title} live demo`}>
+                                <HiExternalLink size={22} />
+                            </a>
+                        )}
                     </div>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">

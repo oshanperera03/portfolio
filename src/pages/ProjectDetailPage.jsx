@@ -72,14 +72,16 @@ export default function ProjectDetailPage() {
                             </div>
 
                             <div className="flex gap-4">
-                                <a
-                                    href={project.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="p-4 bg-indigo-600 text-white rounded-2xl shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center gap-2 font-bold"
-                                >
-                                    Live Demo <HiExternalLink />
-                                </a>
+                                {project.link && (
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="p-4 bg-indigo-600 text-white rounded-2xl shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center gap-2 font-bold"
+                                    >
+                                        Live Demo <HiExternalLink />
+                                    </a>
+                                )}
                                 <a
                                     href={project.github}
                                     target="_blank"
@@ -95,55 +97,74 @@ export default function ProjectDetailPage() {
                     {/* Image Gallery Section */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
                         <div className="lg:col-span-8 space-y-6">
-                            <div className="relative group rounded-[2.5rem] overflow-hidden aspect-video bg-slate-900 shadow-2xl border border-white/5">
-                                <AnimatePresence mode="wait">
-                                    <motion.img
-                                        key={activeImageIndex}
-                                        src={project.images[activeImageIndex]}
-                                        alt={`${project.title} screenshot ${activeImageIndex + 1}`}
-                                        initial={{ opacity: 0, scale: 1.05 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4 }}
-                                        className="w-full h-full object-cover"
-                                    />
-                                </AnimatePresence>
+                            {project.video && (
+                                <video
+                                    className="w-full aspect-video rounded-[2.5rem] bg-slate-900 shadow-2xl border border-white/5"
+                                    controls
+                                    preload="metadata"
+                                    src={project.video}
+                                >
+                                    Your browser does not support video playback.
+                                </video>
+                            )}
 
-                                {/* Navigation Arrows */}
-                                <div className="absolute inset-0 flex items-center justify-between px-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button
-                                        onClick={prevImage}
-                                        className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white/40 transition-all"
-                                    >
-                                        <HiChevronLeft size={24} />
-                                    </button>
-                                    <button
-                                        onClick={nextImage}
-                                        className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white/40 transition-all"
-                                    >
-                                        <HiChevronRight size={24} />
-                                    </button>
+                            {project.images.length > 0 ? (
+                                <>
+                                    <div className="relative group rounded-[2.5rem] overflow-hidden aspect-video bg-slate-900 shadow-2xl border border-white/5">
+                                        <AnimatePresence mode="wait">
+                                            <motion.img
+                                                key={activeImageIndex}
+                                                src={project.images[activeImageIndex]}
+                                                alt={`${project.title} screenshot ${activeImageIndex + 1}`}
+                                                initial={{ opacity: 0, scale: 1.05 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                transition={{ duration: 0.4 }}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </AnimatePresence>
+
+                                        <div className="absolute inset-0 flex items-center justify-between px-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <button
+                                                onClick={prevImage}
+                                                aria-label="Previous screenshot"
+                                                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white/40 transition-all"
+                                            >
+                                                <HiChevronLeft size={24} />
+                                            </button>
+                                            <button
+                                                onClick={nextImage}
+                                                aria-label="Next screenshot"
+                                                className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center hover:bg-white/40 transition-all"
+                                            >
+                                                <HiChevronRight size={24} />
+                                            </button>
+                                        </div>
+
+                                        <div className="absolute bottom-6 right-6 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white text-sm font-medium">
+                                            {activeImageIndex + 1} / {project.images.length}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                                        {project.images.map((img, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveImageIndex(idx)}
+                                                aria-label={`View screenshot ${idx + 1}`}
+                                                className={`relative flex-shrink-0 w-32 aspect-video rounded-2xl overflow-hidden border-2 transition-all ${activeImageIndex === idx ? 'border-indigo-500 scale-105 shadow-lg' : 'border-transparent opacity-60 hover:opacity-100'
+                                                    }`}
+                                            >
+                                                <img src={img} alt="" className="w-full h-full object-cover" />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </>
+                            ) : !project.video && (
+                                <div className={`aspect-video rounded-[2.5rem] bg-gradient-to-tr ${project.gradient} shadow-2xl flex items-center justify-center p-8 text-center text-white`}>
+                                    <p className="text-lg font-semibold">Project photos and video coming soon</p>
                                 </div>
-
-                                {/* Counter */}
-                                <div className="absolute bottom-6 right-6 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 text-white text-sm font-medium">
-                                    {activeImageIndex + 1} / {project.images.length}
-                                </div>
-                            </div>
-
-                            {/* Thumbnails */}
-                            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-                                {project.images.map((img, idx) => (
-                                    <button
-                                        key={idx}
-                                        onClick={() => setActiveImageIndex(idx)}
-                                        className={`relative flex-shrink-0 w-32 aspect-video rounded-2xl overflow-hidden border-2 transition-all ${activeImageIndex === idx ? 'border-indigo-500 scale-105 shadow-lg' : 'border-transparent opacity-60 hover:opacity-100'
-                                            }`}
-                                    >
-                                        <img src={img} alt="Thumbnail" className="w-full h-full object-cover" />
-                                    </button>
-                                ))}
-                            </div>
+                            )}
                         </div>
 
                         {/* Sidebar Info */}
