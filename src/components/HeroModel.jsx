@@ -11,7 +11,7 @@ function Model(props) {
 export default function HeroModel() {
   return (
     <div className="w-full h-[400px] lg:h-[600px] flex items-center justify-center cursor-grab active:cursor-grabbing">
-      <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 2, 6], fov: 50 }}>
+      <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 2, 6], fov: 50 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.15} />
           <directionalLight position={[5, 10, 5]} intensity={0.8} castShadow />

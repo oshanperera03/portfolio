@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiOutlineChevronDown, HiExternalLink } from 'react-icons/hi';
 import { FaCode, FaServer, FaLayerGroup, FaMicrochip, FaJava } from 'react-icons/fa';
@@ -29,7 +29,8 @@ import Footer from '../components/Footer';
 
 import { projects } from '../data/projects';
 import profileImage from '../assets/profile.jpeg';
-import HeroModel from '../components/HeroModel';
+
+const HeroModel = React.lazy(() => import('../components/HeroModel'));
 
 const skills = [
     { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
@@ -195,13 +196,11 @@ export default function HomePage() {
                         </motion.div>
                     </div>
 
-                    <div className='hero-model hidden lg:block w-full'>
-                        <HeroModel />
+                    <div className="hero-model mt-8 w-full lg:mt-0">
+                        <Suspense fallback={<div className="h-[400px] w-full lg:h-[600px]" aria-hidden="true" />}>
+                            <HeroModel />
+                        </Suspense>
                     </div>
-                </div>
-
-                <div className="lg:hidden w-full px-6 md:px-8 mt-8">
-                    <HeroModel />
                 </div>
 
                 <motion.div
